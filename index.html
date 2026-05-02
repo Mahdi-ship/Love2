@@ -1,227 +1,78 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>إلى أميرتي</title>
+    <title>Neon Heart</title>
     <style>
-        /* --- الأساسيات ونظام الألوان --- */
-        :root {
-            --bg-color: #fff5f8; /* وردي فاتح جداً للخلفية */
-            --main-accent: #ff4d94; /* وردي قوي للقلوب واللمسات */
-            --text-color: #4a4a4a; /* رمادي داكن للنص مريح للعين */
-            --secondary-accent: #ffb3d1; /* وردي ناعم */
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* خط ناعم وعصري */
-        }
-
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            overflow-x: hidden; /* لمنع التمرير الأفقي بسبب القلوب */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
-
-        /* --- الحاوية الرئيسية --- */
-        .container {
-            text-align: center;
-            background: rgba(255, 255, 255, 0.9); /* خلفية بيضاء شفافة */
-            padding: 50px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05); /* ظل ناعم */
-            position: relative;
-            z-index: 10;
-            max-width: 90%;
-            width: 600px;
-        }
-
-        /* --- القلوب الطائرة (الخلفية متحركة) --- */
-        .heart-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none; /* لا تتداخل مع النقرات */
-            z-index: 1;
-        }
-
-        .heart {
-            position: absolute;
-            background-color: var(--main-accent);
-            width: 15px;
-            height: 15px;
-            border-radius: 50%;
-            opacity: 0.6;
-            animation: float 10s infinite ease-in-out;
-        }
-
-        /* شكل القلب بالكرود */
-        .heart::before,
-        .heart::after {
-            content: '';
-            position: absolute;
-            background-color: inherit;
-            width: 15px;
-            height: 15px;
-            border-radius: 50%;
-        }
-
-        .heart::before {
-            top: -7.5px;
-            left: 0;
-        }
-
-        .heart::after {
-            left: 7.5px;
-            top: 0;
-        }
-
-        /* حركة الطفو */
-        @keyframes float {
-            0% { transform: translateY(100vh) rotate(0deg) scale(0.5); opacity: 0; }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
-            100% { transform: translateY(-10vh) rotate(360deg) scale(1.2); opacity: 0; }
-        }
-
-        /* --- الأجزاء النصية --- */
-        h1 {
-            color: var(--main-accent);
-            font-size: 2.5em;
-            margin-bottom: 20px;
-            animation: fadeInDown 1.5s ease;
-        }
-
-        .special-message {
-            font-size: 1.2em;
-            line-height: 1.8;
-            margin-bottom: 30px;
-            animation: fadeInUp 2s ease;
-            white-space: pre-line; /* للحفاظ على السطور الجديدة */
-        }
-
-        /* --- القلب النابض الرئيسي --- */
-        .main-heart {
-            font-size: 60px;
-            color: var(--main-accent);
-            display: inline-block;
-            animation: beat 1.5s infinite, fadeIn 2.5s ease;
-            margin: 20px 0;
-        }
-
-        @keyframes beat {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-        }
-
-        /* --- الزر --- */
-        .btn {
-            background-color: var(--main-accent);
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            border-radius: 30px;
-            font-size: 1.1em;
-            cursor: pointer;
-            transition: background 0.3s ease, transform 0.2s ease;
-            text-decoration: none;
-            display: inline-block;
-            box-shadow: 0 4px 15px rgba(255, 77, 148, 0.4);
-            animation: fadeIn 3s ease;
-        }
-
-        .btn:hover {
-            background-color: #e63980;
-            transform: translateY(-2px);
-        }
-
-        .btn:active {
-            transform: translateY(1px);
-        }
-
-        /* --- حركات التلاشي (Animations) --- */
-        @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        /* --- التجاوب مع الموبايل --- */
-        @media (max-width: 600px) {
-            .container { padding: 30px 20px; }
-            h1 { font-size: 2em; }
-            .special-message { font-size: 1em; }
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; user-select: none; }
+        html, body { width: 100%; height: 100%; overflow: hidden; background: #000; }
+        canvas { display: block; width: 100vw; height: 100vh; }
     </style>
 </head>
 <body>
-
-    <div class="heart-bg" id="heartBg">
-        </div>
-
-    <div class="container">
-        <h1>إلى مَن مَلَكَت قلبي ❤️</h1>
-        
-        <div class="main-heart">❤️</div>
-
-        <p class="special-message">
-            إلى الإنسانة التي تجعل حياتي أجمل كل يوم..
-            
-            أردت أن أهديكِ شيئاً بسيطاً، صُنِع بلمسات تقنية ولكنه محملٌ بمشاعر لا حدود لها.
-            أنتِ لستِ فقط حبيبتي، أنتِ عالمي، ملهمتي، وابتسامتي التي لا تغيب.
-            
-            كل كود هنا، كل حركة، وكل لون، تم اختياره ليعبر عن جزء بسيط من حبي لكِ.
-            
-            أحبكِ اليوم، غداً، وإلى الأبد.
-        </p>
-
-        <a href="https://wa.me/?text=وصلتني%20الهدية%20يا%20حبيبي،%20أحبك!" target="_blank" class="btn">أحبك أيضاً ❤️</a>
-    </div>
-
+    <canvas id="c"></canvas>
     <script>
-        // --- إضافة قلوب خلفية عشوائية ---
-        const heartBg = document.getElementById('heartBg');
-        const heartCount = 30; // عدد القلوب في الخلفية
+        const canvas = document.getElementById("c");
+        const ctx = canvas.getContext("2d");
+        let W, H, CX, CY, SCALE;
+        const DPR = Math.min(window.devicePixelRatio || 1, 2);
+        const text = "I love you";
+        const points = [];
+        const TOTAL = 100;
 
-        function createHearts() {
-            for (let i = 0; i < heartCount; i++) {
-                const heart = document.createElement('div');
-                heart.classList.add('heart');
-                
-                // تحديد موقع أفقي عشوائي
-                heart.style.left = Math.random() * 100 + 'vw';
-                
-                // تحديد تأخير عشوائي للحركة لجعلها تبدو طبيعية
-                heart.style.animationDelay = Math.random() * 5 + 's';
-                
-                // تحديد حجم عشوائي قليلًا
-                const size = Math.random() * 10 + 10 + 'px';
-                heart.style.width = size;
-                heart.style.height = size;
+        function resize() {
+            W = window.innerWidth;
+            H = window.innerHeight;
+            canvas.width = W * DPR;
+            canvas.height = H * DPR;
+            canvas.style.width = W + "px";
+            canvas.style.height = H + "px";
+            ctx.scale(DPR, DPR);
+            CX = W / 2;
+            CY = H / 2 + 20;
+            SCALE = Math.min(W, H) * 0.015;
+            buildPoints();
+        }
 
-                heartBg.appendChild(heart);
+        function heart(t) {
+            const x = 16 * Math.pow(Math.sin(t), 3);
+            const y = 13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t);
+            return { x: x * SCALE, y: -y * SCALE };
+        }
+
+        function buildPoints() {
+            points.length = 0;
+            for (let i = 0; i < TOTAL; i++) {
+                const t = (i / TOTAL) * Math.PI * 2;
+                points.push({ baseT: t, phase: Math.random() * Math.PI * 2 });
             }
         }
 
-        createHearts();
+        function draw() {
+            ctx.fillStyle = "rgba(0, 0, 0, 0.15)";
+            ctx.fillRect(0, 0, W, H);
+            const time = Date.now() * 0.002;
+            points.forEach(p => {
+                const s = Math.sin(time + p.phase) * 0.2 + 1;
+                const pos = heart(p.baseT);
+                ctx.save();
+                ctx.translate(CX + pos.x * s, CY + pos.y * s);
+                ctx.rotate(p.baseT + Math.PI / 2);
+                ctx.shadowColor = "#ff78be";
+                ctx.shadowBlur = 10;
+                ctx.fillStyle = "#ff78be";
+                ctx.font = "bold 14px Arial";
+                ctx.textAlign = "center";
+                ctx.fillText(text, 0, 0);
+                ctx.restore();
+            });
+            requestAnimationFrame(draw);
+        }
+
+        window.addEventListener("resize", resize);
+        resize();
+        draw();
     </script>
 </body>
 </html>
